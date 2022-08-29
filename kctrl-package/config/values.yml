@@ -1,0 +1,52 @@
+#@data/values-schema
+---
+#@schema/title "Instance Name"
+#@schema/desc "The name of the instance and related objects"
+name: ""
+
+#@schema/title "Instance Namespace"
+#@schema/desc "The namespace the instance objects should be deployed into"
+#@schema/nullable
+namespace: ""
+
+#@schema/title "Labels"
+#@schema/desc "A set of labels which will be applied to all resources related to this instance"
+#@schema/default {"app.kubernetes.io/app":"podinfo"}
+#@schema/type any=True
+labels:
+
+#@schema/title "ReplicaCount"
+#@schema/desc "Number of Replicas"
+#@schema/default 1
+replicaCount: 0
+
+#@schema/title "PullPolicy"
+#@schema/desc "Pull Policyd of the Container Image"
+#@schema/default "IfNotPresent"
+pullPolicy: ""
+
+#@schema/title "ImageTag"
+#@schema/desc "Tag of the Container Image"
+#@schema/default "6.2.0"
+imageTag: ""
+
+#@schema/title "Service Configuration"
+#@schema/desc "Options related to the Service"
+service:
+
+  #@schema/default "ClusterIP"
+  type: ""
+
+  #@schema/default "9797"
+  metricsPort: ""
+
+  #@schema/default "80"
+  httpPort: ""
+
+#@schema/title "UI Configuration"
+#@schema/desc "Options related to the UI, such as the message and the color"
+ui:
+  message: ""
+
+  #@schema/default "#34577c"
+  color: ""
