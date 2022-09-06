@@ -1,0 +1,17 @@
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  annotations:
+    kctrl.carvel.dev/local-fetch-0: .
+  creationTimestamp: null
+  name: kctrl-package
+spec:
+  packageRef:
+    refName: kctrl-package.demo.kearos.net
+    versionSelection:
+      constraints: 0.0.0
+  serviceAccountName: kctrl-dev-sa
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

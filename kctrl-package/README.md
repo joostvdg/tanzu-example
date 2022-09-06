@@ -422,3 +422,7 @@ kctrl package release -v 0.1.0 \
 * https://carvel.dev/blog/signing-imgpkg-bundles-with-cosign/
 
 TODO
+
+## Kapp Configuration
+
+* https://carvel.dev/kapp/docs/v0.51.0/config/#waitrules

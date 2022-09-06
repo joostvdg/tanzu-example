@@ -1,0 +1,9 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: kctrl-package.demo.kearos.net
+spec:
+  displayName: kctrl-package
+  longDescription: kctrl-package.demo.kearos.net
+  shortDescription: kctrl-package.demo.kearos.net

@@ -1,0 +1,89 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: kctrl-package.demo.kearos.net.0.0.0-81b7676
+spec:
+  refName: kctrl-package.demo.kearos.net
+  releasedAt: "2022-09-06T21:46:17Z"
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - imgpkgBundle:
+          image: index.docker.io/joostvdgtanzu/podinfo-kctrl@sha256:dfd4e32424e66f4aa59a7abeab80dd786d966aa68a79ef835d23701227533de1
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - '-'
+          - .imgpkg/images.yml
+  valuesSchema:
+    openAPIv3:
+      additionalProperties: false
+      properties:
+        imageTag:
+          default: 6.2.0
+          description: Tag of the Container Image
+          title: ImageTag
+          type: string
+        labels:
+          default:
+            app.kubernetes.io/app: podinfo
+          description: A set of labels which will be applied to all resources related
+            to this instance
+          nullable: true
+          title: Labels
+        name:
+          default: ""
+          description: The name of the instance and related objects
+          title: Instance Name
+          type: string
+        namespace:
+          default: null
+          description: The namespace the instance objects should be deployed into
+          nullable: true
+          title: Instance Namespace
+          type: string
+        pullPolicy:
+          default: IfNotPresent
+          description: Pull Policyd of the Container Image
+          title: PullPolicy
+          type: string
+        replicaCount:
+          default: 1
+          description: Number of Replicas
+          title: ReplicaCount
+          type: integer
+        service:
+          additionalProperties: false
+          description: Options related to the Service
+          properties:
+            httpPort:
+              default: "80"
+              type: string
+            metricsPort:
+              default: "9797"
+              type: string
+            type:
+              default: ClusterIP
+              type: string
+          title: Service Configuration
+          type: object
+        ui:
+          additionalProperties: false
+          description: Options related to the UI, such as the message and the color
+          properties:
+            color:
+              default: '#34577c'
+              type: string
+            message:
+              default: ""
+              type: string
+          title: UI Configuration
+          type: object
+      type: object
+  version: 0.0.0-81b7676

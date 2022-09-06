@@ -4,6 +4,8 @@ metadata:
   creationTimestamp: null
   name: kctrl-package.demo.kearos.net
 spec:
+  release:
+  - resource: {}
   template:
     spec:
       app:
@@ -16,5 +18,8 @@ spec:
               - config
           - kbld: {}
       export:
-      - includePaths:
+      - imgpkgBundle:
+          image: joostvdgtanzu/podinfo-kctrl
+          useKbldImagesLock: true
+        includePaths:
         - config

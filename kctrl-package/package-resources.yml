@@ -16,12 +16,10 @@ spec:
       - ytt:
           paths:
           - config
-          - data
       - kbld: {}
   valuesSchema:
     openAPIv3: null
   version: 0.0.0
-
 ---
 apiVersion: data.packaging.carvel.dev/v1alpha1
 kind: PackageMetadata
@@ -32,7 +30,6 @@ spec:
   displayName: kctrl-package
   longDescription: kctrl-package.demo.kearos.net
   shortDescription: kctrl-package.demo.kearos.net
-
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -46,7 +43,7 @@ spec:
     refName: kctrl-package.demo.kearos.net
     versionSelection:
       constraints: 0.0.0
-  serviceAccountName: kctrl-package-sa
+  serviceAccountName: kctrl-dev-sa
 status:
   conditions: null
   friendlyDescription: ""
