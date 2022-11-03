@@ -421,7 +421,11 @@ kctrl package release -v 0.1.0 \
 
 * https://carvel.dev/blog/signing-imgpkg-bundles-with-cosign/
 
-TODO
+### Generate Cosign Keys
+
+```sh
+cosign generate-key-pair
+```
 
 ## Kapp Configuration
 
