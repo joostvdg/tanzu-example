@@ -1,0 +1,38 @@
+#@ load("@ytt:data", "data")
+#@ dv = data.values
+#@ kpRegistry = "{}/{}".format(dv.buildRegistry, dv.tbsRepo)
+---
+profile: build
+buildservice:
+  pull_from_kp_default_repo: true
+  exclude_dependencies: true
+  kp_default_repository: #@ kpRegistry
+  kp_default_repository_secret:
+    name: #@ dv.buildRegistrySecret
+    namespace: tap-install
+
+supply_chain: basic
+ootb_supply_chain_basic:
+  registry:
+    server: #@ dv.buildRegistry
+    repository: #@ dv.buildRepo
+
+shared:
+  ingress_domain: #@ dv.domainName
+  ca_cert_data: #@ dv.caCert
+
+cnrs:
+  ingress:
+    external:
+      namespace: projectcontour #! namespace of the pre-installed contour instance
+    internal:
+      namespace: projectcontour #! namespace of the pre-installed contour instance
+
+ceip_policy_disclosed: true
+
+excluded_packages:
+  - cert-manager.tanzu.vmware.com
+  - contour.tanzu.vmware.com
+  - scanning.apps.tanzu.vmware.com
+  - grype.scanning.apps.tanzu.vmware.com
+  - tap-telemetry.tanzu.vmware.com 

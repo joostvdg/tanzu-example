@@ -1,0 +1,253 @@
+---
+apiVersion: kp.kpack.io/v1alpha3
+clusterBuilders:
+- clusterStack: base
+  clusterStore: default
+  name: base
+  order:
+  - group:
+    - id: tanzu-buildpacks/ruby
+  - group:
+    - id: tanzu-buildpacks/dotnet-core
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: tanzu-buildpacks/python
+  - group:
+    - id: tanzu-buildpacks/web-servers
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/nodejs
+  - group:
+    - id: paketo-buildpacks/procfile
+- clusterStack: full
+  clusterStore: default
+  name: full
+  order:
+  - group:
+    - id: tanzu-buildpacks/ruby
+  - group:
+    - id: tanzu-buildpacks/dotnet-core
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: tanzu-buildpacks/python
+  - group:
+    - id: tanzu-buildpacks/php
+  - group:
+    - id: tanzu-buildpacks/web-servers
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/nodejs
+  - group:
+    - id: paketo-buildpacks/procfile
+- clusterStack: tiny
+  clusterStore: default
+  name: tiny
+  order:
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: paketo-buildpacks/procfile
+- clusterStack: base-jammy
+  clusterStore: default
+  name: base-jammy
+  order:
+  - group:
+    - id: tanzu-buildpacks/dotnet-core
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: tanzu-buildpacks/python
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/nodejs
+  - group:
+    - id: paketo-buildpacks/procfile
+- clusterStack: full-jammy
+  clusterStore: default
+  name: full-jammy
+  order:
+  - group:
+    - id: tanzu-buildpacks/dotnet-core
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: tanzu-buildpacks/python
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/nodejs
+  - group:
+    - id: paketo-buildpacks/procfile
+- clusterStack: tiny-jammy
+  clusterStore: default
+  name: tiny-jammy
+  order:
+  - group:
+    - id: tanzu-buildpacks/java-native-image
+  - group:
+    - id: tanzu-buildpacks/java
+  - group:
+    - id: tanzu-buildpacks/go
+  - group:
+    - id: paketo-buildpacks/procfile
+clusterStacks:
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:130af9874747e39cd5b36c0167eb7467e44cde0ed80f60446fd4ffa1320b0c9b
+  name: tiny
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:07ea3914d7eb405b80dfde24d7f910dfd1fc2600608d23cce08ee51d35339a00
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:6970ece201c59f4795b9a99cb1073e461913b6e77c2d5eb04e2bbf15d1d800d4
+  name: base
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:54084eca45ac3d7696dde4e586717f77ed2d779406a192647eeeb6b6b7c67716
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3a5319775bb5a065d2b4ea51d82762add1e27dc4945924dcc21bf94cd0d41035
+  name: full
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:0181fe4477f4dacbdd4ebe71539cd29529f786c63112a3d12a02d0a8659b8d8d
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:eb9f02363b6bfb2b2035e5e3457e8de08c124ccca4c57558457bb9a6dfca8957
+  name: tiny-jammy
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:8cc408370f80c43907cb1109a48241d7674b07ffcc6d95749f75b10c8c1ac797
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3140ae84634dcc6d2e4b668837026913224e177bb79fbf2544039ae828031119
+  name: base-jammy
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ca768137253a535709a4b291dc9e403c5be9ce96fddebdbb06bfa451088bee0d
+- buildImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:274ae1454d6cd6af4f9a9cdf16f7a36573cac658e991b71f4ed1525f25bfa6d6
+  name: full-jammy
+  runImage:
+    image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ae7b36941fdd317c6657aca041c9e03e60b951bba5abfc87856298a1e41fb124
+clusterStores:
+- name: default
+  sources:
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3b13cb5e3f720886dcdad203439a5e412da94f716b7c3eac532a57c9c83d3294
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:f60883f831cc89254be694768f1d70384c45071b95719f84b4ffa7c601c7efc0
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c79121ac6203703897db2ee5d3561d49ad4ea0fe3501d37dc28024f296f23ff3
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:1213f07af7f24e8e78b12ec55597d019f29ce8bfad3588ea322ce75d120ede05
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c1d9a14116186be7d31d4d3f9ae29d7f63952383d11a2a2b4e8e9e814291ee49
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:03ca752aef3ad001da3469d59d31d1bdc6c89d72f0bfe0ce810da3e68a82b574
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:de77d3f90a238d15ca1df58bbcafd79763a46547163ce67f18eef8758a60337d
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:b9cbcd956f2ef2508cbc1f72b2f8ad755f4e9a815655436e8ff35bba788ffdb2
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:47b16e083a78505079e66b9136e1052ff39e3efc783e7a4b8a634ccb85372631
+  - image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:2d46dd49ca4eac20803ed8d86a359e44835f15e4ee01425077528d9e147b7209
+defaultClusterBuilder: base
+defaultClusterStack: base
+kind: DependencyDescriptor
+lifecycle:
+  image: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:851d49d1a9786d6b3fa17fa5d669dbbb687e23d047e6c08165d629603f0d70ec
+metadata:
+  annotations:
+    kbld.k14s.io/images: |
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:0181fe4477f4dacbdd4ebe71539cd29529f786c63112a3d12a02d0a8659b8d8d
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:0181fe4477f4dacbdd4ebe71539cd29529f786c63112a3d12a02d0a8659b8d8d
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:03ca752aef3ad001da3469d59d31d1bdc6c89d72f0bfe0ce810da3e68a82b574
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:03ca752aef3ad001da3469d59d31d1bdc6c89d72f0bfe0ce810da3e68a82b574
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:07ea3914d7eb405b80dfde24d7f910dfd1fc2600608d23cce08ee51d35339a00
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:07ea3914d7eb405b80dfde24d7f910dfd1fc2600608d23cce08ee51d35339a00
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:1213f07af7f24e8e78b12ec55597d019f29ce8bfad3588ea322ce75d120ede05
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:1213f07af7f24e8e78b12ec55597d019f29ce8bfad3588ea322ce75d120ede05
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:130af9874747e39cd5b36c0167eb7467e44cde0ed80f60446fd4ffa1320b0c9b
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:130af9874747e39cd5b36c0167eb7467e44cde0ed80f60446fd4ffa1320b0c9b
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:274ae1454d6cd6af4f9a9cdf16f7a36573cac658e991b71f4ed1525f25bfa6d6
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:274ae1454d6cd6af4f9a9cdf16f7a36573cac658e991b71f4ed1525f25bfa6d6
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:2d46dd49ca4eac20803ed8d86a359e44835f15e4ee01425077528d9e147b7209
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:2d46dd49ca4eac20803ed8d86a359e44835f15e4ee01425077528d9e147b7209
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3140ae84634dcc6d2e4b668837026913224e177bb79fbf2544039ae828031119
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3140ae84634dcc6d2e4b668837026913224e177bb79fbf2544039ae828031119
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3a5319775bb5a065d2b4ea51d82762add1e27dc4945924dcc21bf94cd0d41035
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3a5319775bb5a065d2b4ea51d82762add1e27dc4945924dcc21bf94cd0d41035
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3b13cb5e3f720886dcdad203439a5e412da94f716b7c3eac532a57c9c83d3294
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:3b13cb5e3f720886dcdad203439a5e412da94f716b7c3eac532a57c9c83d3294
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:47b16e083a78505079e66b9136e1052ff39e3efc783e7a4b8a634ccb85372631
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:47b16e083a78505079e66b9136e1052ff39e3efc783e7a4b8a634ccb85372631
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:54084eca45ac3d7696dde4e586717f77ed2d779406a192647eeeb6b6b7c67716
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:54084eca45ac3d7696dde4e586717f77ed2d779406a192647eeeb6b6b7c67716
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:6970ece201c59f4795b9a99cb1073e461913b6e77c2d5eb04e2bbf15d1d800d4
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:6970ece201c59f4795b9a99cb1073e461913b6e77c2d5eb04e2bbf15d1d800d4
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:851d49d1a9786d6b3fa17fa5d669dbbb687e23d047e6c08165d629603f0d70ec
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:851d49d1a9786d6b3fa17fa5d669dbbb687e23d047e6c08165d629603f0d70ec
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:8cc408370f80c43907cb1109a48241d7674b07ffcc6d95749f75b10c8c1ac797
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:8cc408370f80c43907cb1109a48241d7674b07ffcc6d95749f75b10c8c1ac797
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ae7b36941fdd317c6657aca041c9e03e60b951bba5abfc87856298a1e41fb124
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ae7b36941fdd317c6657aca041c9e03e60b951bba5abfc87856298a1e41fb124
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:b9cbcd956f2ef2508cbc1f72b2f8ad755f4e9a815655436e8ff35bba788ffdb2
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:b9cbcd956f2ef2508cbc1f72b2f8ad755f4e9a815655436e8ff35bba788ffdb2
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c1d9a14116186be7d31d4d3f9ae29d7f63952383d11a2a2b4e8e9e814291ee49
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c1d9a14116186be7d31d4d3f9ae29d7f63952383d11a2a2b4e8e9e814291ee49
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c79121ac6203703897db2ee5d3561d49ad4ea0fe3501d37dc28024f296f23ff3
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:c79121ac6203703897db2ee5d3561d49ad4ea0fe3501d37dc28024f296f23ff3
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ca768137253a535709a4b291dc9e403c5be9ce96fddebdbb06bfa451088bee0d
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:ca768137253a535709a4b291dc9e403c5be9ce96fddebdbb06bfa451088bee0d
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:de77d3f90a238d15ca1df58bbcafd79763a46547163ce67f18eef8758a60337d
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:de77d3f90a238d15ca1df58bbcafd79763a46547163ce67f18eef8758a60337d
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:eb9f02363b6bfb2b2035e5e3457e8de08c124ccca4c57558457bb9a6dfca8957
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:eb9f02363b6bfb2b2035e5e3457e8de08c124ccca4c57558457bb9a6dfca8957
+      - origins:
+        - preresolved:
+            url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:f60883f831cc89254be694768f1d70384c45071b95719f84b4ffa7c601c7efc0
+        url: harbor.10.220.2.199.sslip.io/build-service/tbs-dependencies/full@sha256:f60883f831cc89254be694768f1d70384c45071b95719f84b4ffa7c601c7efc0

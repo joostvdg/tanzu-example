@@ -1,0 +1,72 @@
+#@data/values
+#@overlay/match-child-defaults missing_ok=True
+---
+
+namespace: tanzu-system-grafana
+
+grafana:
+  deployment:
+    replicas: 1
+    containers:
+      resources: {}
+    podAnnotations: {}
+    podLabels: {}
+    k8sSidecar:
+      containers:
+        resources: {}
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 3000
+    labels: {}
+    annotations: {}
+  config:
+    grafana_ini: |
+      [analytics]
+      check_for_updates = false
+      [grafana_net]
+      url = https://grafana.com
+      [log]
+      mode = console
+      [paths]
+      data = /var/lib/grafana/data
+      logs = /var/log/grafana
+      plugins = /var/lib/grafana/plugins
+      provisioning = /etc/grafana/provisioning
+    datasource_yaml: |-
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: prometheus-server.tanzu-system-monitoring.svc.cluster.local
+          access: proxy
+          isDefault: true
+    dashboardProvider_yaml: |-
+      apiVersion: 1
+      providers:
+        - name: 'sidecarDashboardProvider'
+          orgId: 1
+          folder: ''
+          folderUid: ''
+          type: file
+          disableDeletion: false
+          updateIntervalSeconds: 10
+          allowUiUpdates: false
+          options:
+            path: /tmp/dashboards
+            foldersFromFilesStructure: true
+  pvc:
+    annotations: {}
+    storageClassName: null
+    accessMode: ReadWriteOnce
+    storage: "2Gi"
+  secret:
+    type: "Opaque"
+    admin_user: "YWRtaW4="
+    admin_password: ""
+
+ingress:
+  enabled: true
+  virtual_host_fqdn: "myplaceholder"
+  prefix: "/"
+  servicePort: 80

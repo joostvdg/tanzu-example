@@ -1,0 +1,155 @@
+namespace: tanzu-system-registry
+hostname: harbor.10.220.2.199.sslip.io
+port:
+  https: 443
+logLevel: info
+tlsCertificate:
+  tls.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIIEozCCA4ugAwIBAgIUNd5Vrmbqk+cr00KQ+5EmYh2HNs4wDQYJKoZIhvcNAQEL
+    BQAwgY4xCzAJBgNVBAYTAk5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAO
+    BgNVBAcTB1V0cmVjaHQxFTATBgNVBAoTDEtlYXJvcyBUYW56dTEdMBsGA1UECxMU
+    S2Vhcm9zIFRhbnp1IFJvb3QgQ0ExHTAbBgNVBAMTFEtlYXJvcyBUYW56dSBSb290
+    IENBMB4XDTIyMTAzMTE3MzMwMFoXDTIzMTAzMTE3MzMwMFowgZQxCzAJBgNVBAYT
+    Ak5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAOBgNVBAcTB1V0cmVjaHQx
+    FTATBgNVBAoTDEtlYXJvcyBUYW56dTEbMBkGA1UECxMSS2Vhcm9zIFRhbnp1IEhv
+    c3RzMSUwIwYDVQQDExxoYXJib3IuMTAuMjIwLjIuMTk5LnNzbGlwLmlvMIIBIjAN
+    BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArT2MWOAD6qPwVczUAEnqCdzs9wax
+    f8/2Vb+QF+2nYffaxFveIsDvR8+q65BjBAd9csp6zr6+1klSmR/GFy4dSMxvFn8M
+    +gN8yQNPRjn+cgw7yu91G52GVSozwBfBtzcBTOlhxElMy4fevOiSBW6wFJk1hYxc
+    C0RjckIcTfgE9dl0t1SsOmvKzowjqlJWfAI7Sw1tSJvB68Gwf4+w7aoT63olT3/f
+    vTqWPWGgzU2uOrR+xJv5NyFh5d5Jwd+xsxbu853dnqChLSN/4/Zoc/27oY3Xrh1b
+    tCvUcQlTYmZwKzpNAWqOkcjmrBmPsfRC81BiL163toCryLY0Amw6GTWVlQIDAQAB
+    o4HwMIHtMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAMBgNV
+    HRMBAf8EAjAAMB0GA1UdDgQWBBT97XFH6nYrlEwwmi7o6TVqzCL+HjAfBgNVHSME
+    GDAWgBR8ZTnQ971hO/lIW8ZU7PpHt109xTB4BgNVHREEcTBvghxoYXJib3IuMTAu
+    MjIwLjIuMTk5LnNzbGlwLmlvgiNub3RhcnkuaGFyYm9yLjEwLjIyMC4yLjE5OS5z
+    c2xpcC5pb4IfaGFyYm9yLmhhcmJvci5zdmMuY2x1c3Rlci5sb2NhbIIJbG9jYWxo
+    b3N0MA0GCSqGSIb3DQEBCwUAA4IBAQBcwtVgU3Y7IJuNtmfoWJsS0h1CxS6oeBaV
+    FUEbAuP4lkQBN4DfyY3sQgkCJZ88iDtEpDkEM6hNH6vq8+LI1Dw/xcWf36rX42du
+    K5VN5PmEhi4HRG0WRdMOub4hko8fR7z6EJvYMIWSRjzRUKE8jT/VgNcEMNPOft0v
+    gH+StcgSvfh7tqSO6tu0IhQvqxTemu0shYDFT1fN0Ne04yROv73TNB7FmhYFw2jj
+    KDGWUWyg2oKOJsa8lVI27k1WZsVVuImJH0vEpQN7bUHrIG8Sz7nMUf+21VZNI1nK
+    E15v31vU1rH0fAGVug/3oE9KSnFat+7Rd2cnHxu+Ua8kEYgdvRi2
+    -----END CERTIFICATE-----
+  tls.key: |-
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEArT2MWOAD6qPwVczUAEnqCdzs9waxf8/2Vb+QF+2nYffaxFve
+    IsDvR8+q65BjBAd9csp6zr6+1klSmR/GFy4dSMxvFn8M+gN8yQNPRjn+cgw7yu91
+    G52GVSozwBfBtzcBTOlhxElMy4fevOiSBW6wFJk1hYxcC0RjckIcTfgE9dl0t1Ss
+    OmvKzowjqlJWfAI7Sw1tSJvB68Gwf4+w7aoT63olT3/fvTqWPWGgzU2uOrR+xJv5
+    NyFh5d5Jwd+xsxbu853dnqChLSN/4/Zoc/27oY3Xrh1btCvUcQlTYmZwKzpNAWqO
+    kcjmrBmPsfRC81BiL163toCryLY0Amw6GTWVlQIDAQABAoIBAGz8FGfw/eXGHrML
+    ea940HhF+Plqx42dud219qNnCe8S6xiupq98asvldCRfoDrvr1bg1KNt0kaiuAjG
+    uWrpwtiCa7xeTz6VpRIcN+n5H/6FfbQsMqMd1V2MgCPvjhmBzBqjk7LVXi+ImXKE
+    aSBrwvAidk4+v8UC0AEYYBAY4J38lmo/i0BtIpTRNncmfYl43xgNgMDxff8eCbmu
+    TutMTBiFiM7hZdhCqg6uEZDbW1UUHApWTInOYBitYggMSr36pXSFNUiFiLVN9AdI
+    ZKV73gqboL47iR96dxvPjiEs6YXI4TPAzhwbdLy1QqUJGdRrr33n8EPlTdHTUbHU
+    g7kOO70CgYEAwHdonKAtGWD+3UYC/q+TQMVWyFhOwL8t//H/fIzCEaI6R3F6V+u6
+    +SXYhB28p4LLh/CDUyhF/e0LEc+6YC6XdV9hNvS8ci0PbqIP68Te4kUNvmwA85rp
+    E/OVTBfUdhUYMhaIdBJYfPo0iwo1RbVRctLbReaz0Kit5X+nN8aYup8CgYEA5m1s
+    bWMEhmkmmo46ia1vPfk7eSE9iBWVfcaVFmi47AVfYF0pDIrnFp3fDv60GdinmuxM
+    N47d6X0Q69/AhoL301hAcJua5QyqpSpzorEEcB/ekEcIfDkBPbDq16GHtW7XhSJ+
+    Mq7q4nA7atUWXcFMjplytaxfgdLDl5rXZ0/pd0sCgYEAh0yqDskPSzMDl5vbCR12
+    P+c6LZbereL3vGBrwSvWVb0ciRK99cayZuly/tVExOFOoR6zwyahpXMZAAlutKSs
+    Noe5eH+tZfpFSfnFhXGdWaU/lyintpik1zC6OIbcBbKokrWCcU5gRGNDwqaHcpyX
+    SEfwe4BF0h5yOM53R99liHMCgYEArzyoKMgUuONeqEth2TI8VzUjNYtB8Cv59B0B
+    ZHlfqJ6tWet/PDqmY1zMNesdrEpHrFnn3JiZyueB5t/S2njfX6rN1tV/hpGLdPBD
+    4IYeieayq6ZZnZ78gp34+uOtAR26aVVCA+liV7JifWxwBfzq68dmpSLhvyk59iGb
+    jsYHFuECgYAd9P9ENLA81pW32PsriUoBtYnI6w+DHkMPOQXFSHjc8ra1L6JtONcY
+    kcjG6P0OR+AfrwdCdZKLcJhZNHKvizyQ2QknLsMVI7aVuAl+L84R9yPy+Jb3K0vv
+    X3bJF/Hi0/vTl4wgGLWRkIsIUFSuL/+Bs0JgYWg/cDV0oBl3NgR2og==
+    -----END RSA PRIVATE KEY-----
+  ca.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIID7jCCAtagAwIBAgIURv5DzXSDklERFu4gL2sQBNeRg+owDQYJKoZIhvcNAQEL
+    BQAwgY4xCzAJBgNVBAYTAk5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAO
+    BgNVBAcTB1V0cmVjaHQxFTATBgNVBAoTDEtlYXJvcyBUYW56dTEdMBsGA1UECxMU
+    S2Vhcm9zIFRhbnp1IFJvb3QgQ0ExHTAbBgNVBAMTFEtlYXJvcyBUYW56dSBSb290
+    IENBMB4XDTIyMDMyMzE1MzUwMFoXDTI3MDMyMjE1MzUwMFowgY4xCzAJBgNVBAYT
+    Ak5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAOBgNVBAcTB1V0cmVjaHQx
+    FTATBgNVBAoTDEtlYXJvcyBUYW56dTEdMBsGA1UECxMUS2Vhcm9zIFRhbnp1IFJv
+    b3QgQ0ExHTAbBgNVBAMTFEtlYXJvcyBUYW56dSBSb290IENBMIIBIjANBgkqhkiG
+    9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyZXDL9W2vu365m//E/w8n1M189a5mI9HcTYa
+    0xZhnup58Zp72PsgzujI/fQe43JEeC+aIOcmsoDaQ/uqRi8p8phU5/poxKCbe9SM
+    f1OflLD9k2dwte6OV5kcSUbVOgScKL1wGEo5mdOiTFrEp5aLBUcbUeJMYz2IqLVa
+    v52H0vTzGfmrfSm/PQb+5qnCE5D88DREqKtWdWW2bCW0HhxVHk6XX/FKD2Z0FHWI
+    ChejeaiarXqWBI94BANbOAOmlhjjyJekT5hL1gh7BuCLbiE+A53kWnXO6Xb/eyuJ
+    obr+uHLJldoJq7SFyvxrDd/8LAJD4XMCEz+3gWjYDXMH7GfPWwIDAQABo0IwQDAO
+    BgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUfGU50Pe9
+    YTv5SFvGVOz6R7ddPcUwDQYJKoZIhvcNAQELBQADggEBAHMoNDxy9/kL4nW0Bhc5
+    Gn0mD8xqt+qpLGgChlsMPNR0xPW04YDotm+GmZHZg1t6vE8WPKsktcuv76d+hX4A
+    uhXXGS9D0FeC6I6j6dOIW7Sbd3iAQQopwICYFL9EFA+QAINeY/Y99Lf3B11JfLU8
+    jN9uGHKFI0FVwHX428ObVrDi3+OCNewQ3fLmrRQe6F6q2OU899huCg+eYECWvxZR
+    a3SlVZmYnefbA87jI2FRHUPqxp4P2mDwj/RZxhgIobhw0zz08sqC6DW0Aj1OIJe5
+    sDAm0uiUdqs7FZN2uKkLKekdTgW0QkTFEJTk5Yk9t/hOrjnHoWQfB+mLhO3vPhip
+    vhs=
+    -----END CERTIFICATE-----
+enableContourHttpProxy: true
+harborAdminPassword: VMware123!
+secretKey: j0Kn0UlfSGzMTBx6
+database:
+  password: 4Oj0848rTIvzJiMc
+core:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+  xsrfKey: sGn5nIgBQKdwx89tZLO5pTJAqbCwVRU8
+jobservice:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+registry:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+notary:
+  enabled: true
+trivy:
+  enabled: true
+  replicas: 1
+  gitHubToken: ""
+  skipUpdate: true
+persistence:
+  persistentVolumeClaim:
+    registry:
+      storageClass: vc01cl01-t0compute
+      accessMode: ReadWriteOnce
+      size: 100Gi
+    jobservice:
+      storageClass: vc01cl01-t0compute
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    database:
+      storageClass: vc01cl01-t0compute
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    redis:
+      storageClass: vc01cl01-t0compute
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    trivy:
+      storageClass: vc01cl01-t0compute
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  imageChartStorage:
+    disableredirect: false
+    type: filesystem
+    filesystem:
+      rootdirectory: /storage
+pspNames: vmware-system-privileged
+metrics:
+  enabled: false
+  core:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  exporter:
+    path: /metrics
+    port: 8001
+network:
+  ipFamilies:
+  - IPv4
+  - IPv6

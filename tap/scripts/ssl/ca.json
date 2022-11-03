@@ -1,0 +1,16 @@
+{
+  "CN": "Kearos Tanzu Root CA",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "NL",
+      "L": "Utrecht",
+      "O": "Kearos Tanzu",
+      "OU": "Kearos Tanzu Root CA",
+      "ST": "The Netherlands"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+    "key": {
+      "algo": "rsa",
+      "size": 2048
+    },
+    "names": [
+    {
+      "C": "NL",
+      "L": "Utrecht",
+      "O": "Kearos Tanzu",
+      "OU": "Kearos Tanzu Hosts",
+      "ST": "The Netherlands"
+    }
+    ]
+  }
+  

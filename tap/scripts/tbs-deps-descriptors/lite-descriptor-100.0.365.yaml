@@ -1,0 +1,65 @@
+apiVersion: kp.kpack.io/v1alpha3
+kind: DependencyDescriptor
+defaultClusterBuilder: base
+defaultClusterStack: base
+lifecycle:
+  image: registry.pivotal.io/tbs-dependencies/lifecycle@sha256:851d49d1a9786d6b3fa17fa5d669dbbb687e23d047e6c08165d629603f0d70ec
+clusterStores:
+- name: default
+  sources:
+  - image: registry.pivotal.io/tanzu-go-buildpack/go-lite@sha256:2e9908e6f68566f3919b3b803f3e8efce15da206a3ee80931334f84a066c6a9d
+  - image: registry.pivotal.io/tanzu-java-buildpack/java-lite@sha256:679885fa1d0e381a1d0faed790e3de35188b4337ad84e83b8747467529ca896e
+  - image: registry.pivotal.io/tanzu-nodejs-buildpack/nodejs-lite@sha256:cb1229dc56c9aa7b78f70fcd29024a9483cfa585f26e580f702cd12d8895974d
+  - image: registry.pivotal.io/tanzu-java-native-image-buildpack/java-native-image-lite@sha256:fe4cef20a58c37dc1f2a1bc85d2cef4b652665b8f91229b01cd836545dd53d2c
+  - image: registry.pivotal.io/tanzu-dotnet-core-buildpack/dotnet-core-lite@sha256:4d2f28cb3b59a4996cbce256e8c5e6d41c7dcf973733e9b75d5354bae7670d74
+  - image: registry.pivotal.io/tanzu-python-buildpack/python-lite@sha256:ed3f919bc63aa602541e929d96ad23a2ae6f0bd2709387c037108cdff689c4c6
+  - image: registry.pivotal.io/tanzu-web-servers-buildpack/web-servers-lite@sha256:b98cc299ba63c0666fd537e14ee7209414526112694d99e64223e92b0185bdbb
+  - image: registry.pivotal.io/tanzu-ruby-buildpack/ruby-lite@sha256:966bfbfa695104dda64ad0e832d76489889de8b8236447a03609945d1eed1340
+clusterStacks:
+- name: base
+  buildImage:
+    image: registry.pivotal.io/tanzu-base-bionic-stack/build@sha256:6970ece201c59f4795b9a99cb1073e461913b6e77c2d5eb04e2bbf15d1d800d4
+  runImage:
+    image: registry.pivotal.io/tanzu-base-bionic-stack/run@sha256:54084eca45ac3d7696dde4e586717f77ed2d779406a192647eeeb6b6b7c67716
+- name: base-jammy
+  buildImage:
+    image: registry.pivotal.io/tanzu-base-ubuntu-2204-stack/build@sha256:3140ae84634dcc6d2e4b668837026913224e177bb79fbf2544039ae828031119
+  runImage:
+    image: registry.pivotal.io/tanzu-base-ubuntu-2204-stack/run@sha256:ca768137253a535709a4b291dc9e403c5be9ce96fddebdbb06bfa451088bee0d
+clusterBuilders:
+- name: base
+  clusterStack: base
+  clusterStore: default
+  order:
+  - group:
+    - id: tanzu-buildpacks/ruby-lite
+  - group:
+    - id: tanzu-buildpacks/dotnet-core-lite
+  - group:
+    - id: tanzu-buildpacks/go-lite
+  - group:
+    - id: tanzu-buildpacks/python-lite
+  - group:
+    - id: tanzu-buildpacks/web-servers-lite
+  - group:
+    - id: tanzu-buildpacks/java-native-image-lite
+  - group:
+    - id: tanzu-buildpacks/java-lite
+  - group:
+    - id: tanzu-buildpacks/nodejs-lite
+- name: base-jammy
+  clusterStack: base-jammy
+  clusterStore: default
+  order:
+  - group:
+    - id: tanzu-buildpacks/dotnet-core-lite
+  - group:
+    - id: tanzu-buildpacks/go-lite
+  - group:
+    - id: tanzu-buildpacks/python-lite
+  - group:
+    - id: tanzu-buildpacks/java-native-image-lite
+  - group:
+    - id: tanzu-buildpacks/java-lite
+  - group:
+    - id: tanzu-buildpacks/nodejs-lite
