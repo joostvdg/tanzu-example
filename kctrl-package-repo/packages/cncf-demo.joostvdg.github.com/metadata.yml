@@ -1,0 +1,9 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: PackageMetadata
+metadata:
+  creationTimestamp: null
+  name: cncf-demo.joostvdg.github.com
+spec:
+  displayName: cncf-demo
+  longDescription: cncf-demo.joostvdg.github.com
+  shortDescription: cncf-demo.joostvdg.github.com

@@ -1,0 +1,61 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: cncf-demo.joostvdg.github.com.0.1.1
+spec:
+  refName: cncf-demo.joostvdg.github.com
+  releasedAt: "2022-11-17T22:41:29Z"
+  template:
+    spec:
+      deploy:
+      - kapp: {}
+      fetch:
+      - imgpkgBundle:
+          image: index.docker.io/caladreas/carvel-helm@sha256:1570c222c6decc854a2d1f52c17c00a02802835cf8dba60aec3a2d1271cab9ab
+      template:
+      - ytt:
+          paths:
+          - config
+      - kbld:
+          paths:
+          - '-'
+          - .imgpkg/images.yml
+  valuesSchema:
+    openAPIv3:
+      additionalProperties: false
+      properties:
+        image:
+          additionalProperties: false
+          description: Details of the Container Image
+          properties:
+            repository:
+              default: docker.io/vfarcic/cncf-demo
+              description: The Container Image Repository
+              title: Repository
+              type: string
+            tag:
+              default: v0.0.1
+              description: The Container Image Tag
+              title: Tag
+              type: string
+          title: Image
+          type: object
+        ingress:
+          additionalProperties: false
+          description: The details of the Ingress configuration
+          properties:
+            host:
+              default: ""
+              description: The Ingress hostname
+              title: Host
+              type: string
+          title: Ingress
+          type: object
+        name:
+          default: cncf-demo
+          description: Name for the resources
+          title: Name
+          type: string
+      type: object
+  version: 0.1.1

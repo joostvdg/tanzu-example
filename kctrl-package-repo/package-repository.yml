@@ -1,0 +1,15 @@
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageRepository
+metadata:
+  annotations:
+    kctrl.carvel.dev/repository-version: 0.0.0-build.1668725066
+  creationTimestamp: "2022-11-17T22:46:27Z"
+  name: tanzu-example.joostvdg.github.com
+spec:
+  fetch:
+    imgpkgBundle:
+      image: index.docker.io/caladreas/tanzu-example-repo@sha256:6baa4648d879b994c8eb1e0a9b888f9af200ad13bce9b7ec390bb75e44627354
+status:
+  conditions: null
+  friendlyDescription: ""
+  observedGeneration: 0

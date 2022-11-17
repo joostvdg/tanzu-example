@@ -1,0 +1,23 @@
+#@data/values-schema
+
+---
+#@schema/title "Name"
+#@schema/desc "Name for the resources"
+name: "cncf-demo"
+
+#@schema/title "Image"
+#@schema/desc "Details of the Container Image"
+image:
+  #@schema/title "Repository"
+  #@schema/desc "The Container Image Repository"
+  repository: "docker.io/vfarcic/cncf-demo"
+  #@schema/title "Tag"
+  #@schema/desc "The Container Image Tag"
+  tag: "v0.0.1"
+
+#@schema/title "Ingress"
+#@schema/desc "The details of the Ingress configuration"
+ingress:
+  #@schema/title "Host"
+  #@schema/desc "The Ingress hostname"
+  host: ""

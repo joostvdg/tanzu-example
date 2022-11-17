@@ -40,6 +40,7 @@ theme:
     code: 'JetBrains Mono'
 
 plugins:
+  - tags
   - git-revision-date-localized:
       type: iso_datetime
   - search
@@ -87,12 +88,10 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
-google_analytics:
-  - 'UA-145385967-1'
-  - 'auto'
 
 nav:
 - HOME: index.md
 - Carvel:
-  - Toolsuite: carvel/index.md
-  - Packages: carvel/packages.md
+  - carvel/index.md
+  - carvel/packages.md
+  - carvel/helm-package.md
