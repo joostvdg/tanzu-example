@@ -1,0 +1,140 @@
+image:
+  repository: osixia/openldap
+  tag: 1.5.0
+
+phpldapadmin:
+  enabled: false
+
+ltb-passwd:
+  enabled: false
+
+customLdifFiles:
+
+  main.ldif: |
+    # define people and groups as category
+    dn: ou=People, dc=example,dc=org
+    objectclass: top
+    objectclass: organizationalunit
+    ou: People
+
+    dn: ou=Groups, dc=example,dc=org
+    objectclass: top
+    objectclass: organizationalunit
+    ou: Groups
+
+    # add Administrator group and add me and admin as members
+    dn: cn=Administrators, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Administrators
+    ou: Groups
+    member: uid=admin,ou=People, dc=example,dc=org
+    member: uid=jvandergriendt,ou=People, dc=example,dc=org
+
+    dn: cn=Blue, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Blue
+    ou: Groups
+    member: uid=blueadmin,ou=People, dc=example,dc=org
+    member: uid=bluedev,ou=People, dc=example,dc=org
+
+    dn: cn=BlueAdmins, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: BlueAdmins
+    ou: Groups
+    member: uid=blueadmin,ou=People, dc=example,dc=org
+
+    dn: cn=Green, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Green
+    ou: Groups
+    member: uid=greenadmin,ou=People, dc=example,dc=org
+    member: uid=greendev,ou=People, dc=example,dc=org
+
+    dn: cn=GreenAdmins, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: GreenAdmins
+    ou: Groups
+    member: uid=greenadmin,ou=People, dc=example,dc=org
+
+    dn: cn=Developers, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Developers
+    ou: Groups
+    member: uid=bluedev,ou=People, dc=example,dc=org
+    member: uid=greendev,ou=People, dc=example,dc=org
+
+    # add specific people (users)
+    dn: uid=jvandergriendt, ou=People, dc=example,dc=org
+    uid: jvandergriendt
+    cn: joostvdg
+    sn: van der Griendt
+    givenname: Joost
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: joostvdg@vmware.com
+    userpassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+
+    dn: uid=blueadmin, ou=People, dc=example,dc=org
+    uid: blueadmin
+    cn: blueadmin
+    sn: Admin
+    givenname: Blue
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: blueadmin@example.org
+    userpassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+
+    dn: uid=bluedev, ou=People, dc=example,dc=org
+    uid: bluedev
+    cn: bluedev
+    sn: Dev
+    givenname: Blue
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: bluedev@example.org
+    userpassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+
+    # add specific people (users)
+    dn: uid=greenadmin, ou=People, dc=example,dc=org
+    uid: greenadmin
+    cn: greenadmin
+    sn: Admin
+    givenname: Green
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: greenadmin@example.org
+    userpassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+
+    dn: uid=greendev, ou=People, dc=example,dc=org
+    uid: greendev
+    cn: greendev
+    sn: Dev
+    givenname: Green
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: greendev@example.org
+    userpassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+
+adminPassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
+configPassword: C5z6DUTNSMDoiWCHI2GIuSPIzCJt5Zo0
