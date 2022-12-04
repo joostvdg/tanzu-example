@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: '#@ data.values.appName'
+  name: '#@ data.values.appName'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: '#@ data.values.appName'
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: '#@ data.values.appName'
+    spec:
+      containers:
+        - image: '#@ data.values.imageRepo + ":" + #@ data.values.imageTag'
+          name: '#@ data.values.appName'
+          ports:
+            - containerPort: 8080
+          resources: '{"limits":{"cpu": "500m","memory": "512Mi"},"requests":{"cpu": "250m","memory": "256Mi"}}'
+          livenessProbe: '{"httpGet": {"path": "/","port": 8080}}'
+          env: '#@ data.values.env'
+  metadata:
+    name: '#@ data.values.appName'
+    label:
+      app: '#@ data.values.appName'
+status: {}

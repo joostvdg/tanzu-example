@@ -95,3 +95,4 @@ nav:
   - carvel/index.md
   - carvel/packages.md
   - carvel/helm-package.md
+  - carvel/package-from-scratch.md

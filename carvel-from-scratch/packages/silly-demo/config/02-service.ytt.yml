@@ -1,0 +1,49 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: '#@ data.values.appName'
+  name: '#@ data.values.appName'
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    apiVersion: v1
+    kind: Service
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: test
+      name: '#@ data.values.appName'
+    spec:
+      ports:
+        - port: 8080
+          protocol: TCP
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/name: test
+    status:
+      loadBalancer: {}
+status:
+  loadBalancer: {}
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: '#@ data.values.appName'
+  name: '#@ data.values.appName'
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app.kubernetes.io/name: '#@ data.values.appName'
+status:
+  loadBalancer: {}
