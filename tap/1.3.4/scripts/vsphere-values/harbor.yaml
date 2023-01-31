@@ -1,0 +1,133 @@
+#@data/values
+#@overlay/match-child-defaults missing_ok=True
+
+---
+namespace: tanzu-system-registry
+hostname: harbor.10.220.7.70.sslip.io
+caBundleSecretName: my-custom-ca
+port:
+  https: 443
+logLevel: info
+tlsCertificate:
+  tls.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIEmjCCA4KgAwIBAgIUOU47CZYAko5JrQ6Xx01mnCPSZvcwDQYJKoZIhvcNAQEL
+    BQAwgY4xCzAJBgNVBAYTAk5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAO
+    BgNVBAcTB1V0cmVjaHQxFTATBgNVBAoTDEtlYXJvcyBUYW56dTEdMBsGA1UECxMU
+    S2Vhcm9zIFRhbnp1IFJvb3QgQ0ExHTAbBgNVBAMTFEtlYXJvcyBUYW56dSBSb290
+    IENBMB4XDTIyMDYwOTE2MDEwMFoXDTIzMDYwOTE2MDEwMFowgZExCzAJBgNVBAYT
+    Ak5MMRgwFgYDVQQIEw9UaGUgTmV0aGVybGFuZHMxEDAOBgNVBAcTB1V0cmVjaHQx
+    FTATBgNVBAoTDEtlYXJvcyBUYW56dTEbMBkGA1UECxMSS2Vhcm9zIFRhbnp1IEhv
+    c3RzMSIwIAYDVQQDExloYXJib3IuMTAuMjIwLjcuNzAubmlwLmlvMIIBIjANBgkq
+    hkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6JOcyUoz8r6F8o4T/U8ipskeBTkBepF2
+    tGPlKtDzOBjlhh7SD/frxpT7rkELHKfkNB8s79DEVraV3FN4yqMP+jqywe1/9a8Q
+    5sMtYUUVaJElnEGlDU4ErHYsdaksnq5izuwr3aXudSMU53wlk4ZfIVWA7jE/KJa1
+    aogBOqphQwtikCgEWnWfbmcLd456l7pZCWkSnNSCUvoufZIZlmdukaMSkJOUwKRn
+    v3JnGMnjTa7W7cqfBr6ITG+cuOufLJtaxNRGS/1ljbM/c/d9UjCFlutVPUSmhmas
+    w0R3u7URpACFCaiKKR+gC8Fmf0bfhmX6sxHZ7fwbmmR387NAH0HGMQIDAQABo4Hq
+    MIHnMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAMBgNVHRMB
+    Af8EAjAAMB0GA1UdDgQWBBSO/lLCx/ej5DtU+Dl4DrAlbeZxyTAfBgNVHSMEGDAW
+    gBR8ZTnQ971hO/lIW8ZU7PpHt109xTByBgNVHREEazBpghloYXJib3IuMTAuMjIw
+    LjcuNzAubmlwLmlvgiBub3RhcnkuaGFyYm9yLjEwLjIyMC43LjcwLm5pcC5pb4If
+    aGFyYm9yLmhhcmJvci5zdmMuY2x1c3Rlci5sb2NhbIIJbG9jYWxob3N0MA0GCSqG
+    SIb3DQEBCwUAA4IBAQC8v8NvK4i08mwFavx5UdvB5Muf1fB829BSNFYSdpksAKCy
+    iewe43sT0+A7Xf8so1fS2sfbnRKhdwFtbwlKRdvcBeDwj93qrGuyjZY7czonkRwp
+    zdtioTdLr42jm2Fodvgo2btbqZCpsezyDd7n/bjtItJfl8ZeCHJSKwCnm+GxXlDW
+    52ZUDn2oeKlBM337Qrhdz1Ehp2+V72R/RQlhC0gT8bdzE1SaD2C3t2FXE72L9Ojr
+    gc/yn2FbHP3RlWxuXghJJUOzEPcBuybklaSIWWjTC+lVLaVz3JLZBALfWHu94XSo
+    XFxwRB9ELrysxNXNKWrA4RP2fpoU+uVZOV9yyQVa
+    -----END CERTIFICATE-----  
+  tls.key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpgIBAAKCAQEA6JOcyUoz8r6F8o4T/U8ipskeBTkBepF2tGPlKtDzOBjlhh7S
+    D/frxpT7rkELHKfkNB8s79DEVraV3FN4yqMP+jqywe1/9a8Q5sMtYUUVaJElnEGl
+    DU4ErHYsdaksnq5izuwr3aXudSMU53wlk4ZfIVWA7jE/KJa1aogBOqphQwtikCgE
+    WnWfbmcLd456l7pZCWkSnNSCUvoufZIZlmdukaMSkJOUwKRnv3JnGMnjTa7W7cqf
+    Br6ITG+cuOufLJtaxNRGS/1ljbM/c/d9UjCFlutVPUSmhmasw0R3u7URpACFCaiK
+    KR+gC8Fmf0bfhmX6sxHZ7fwbmmR387NAH0HGMQIDAQABAoIBAQCBmRep1s5huqbb
+    RS6AXaN6euFemahoSzxxQqUFmc+d98mWVgBJ46WfT497R0VQ34E7Rg/9RkDR7QZO
+    8riBeiHCFwlbJOPD3Jy3ahUUebF3RkJF8xJs+oeCLouRuQZjGdt3YIUFCpx462aP
+    o08xCJRj98hTcl+2V1yaE1VUAnMWLubjLP4JGU8fL1Ex+4LPz3+lOLbyTVa9VLPL
+    OOdZptciOEe7XhpEhAyOLIOB7obKgj18fbe0+bKBUoPhconppZhta9PmQuz1SEl+
+    20QGtFBRDXTzU51MQNT5kzCnIhGQiipYLJmobHS+qE1G6j6hPYvAoLttkk+2JIHT
+    /4FIB/gtAoGBAPpSgdfxNt/aQeYLaZeJqXGJkNb/X1YfV4R1gV3YES3BufXZf6CV
+    sk+aoCTlxQrpXTFA2OIgcwiW02GzUTJCbrPk17TKQvoQclmJCbKyNJMXPiG/yHtL
+    3zdiHjGpXUSZcVaPqtAwc2xWol4NuPjnSAbmuhB6i2zBO7BbMQdjtNvzAoGBAO3a
+    ELCQXaPdUButJnyWOFUnDYdzHXEMuf4lR0KydBxISMWKZ3BjdV76lAok0PrYlJRD
+    tT8tL0l8jiq+rC+3OMkln2VEBRxEahAMDZNtkpCmX6YghVOdTME35rZFsYu0DNgx
+    x+64yg59h/znTGbzfR0ioE//7GMqI0p/c9ItyNJLAoGBAOu4WlEQ8o2lp7yLLqnm
+    lks2MdBjtlERPoabaHEIkFS4QvdCEy8TCFBx2TAltoFp87n3yMRXrjt+XBt6kpFz
+    gW+hpYa3mI6GgkfSBfHiYiPJFVcOlCmW7uHmYWx+gjehDttmeoGFvotcoZVT8sVg
+    dbEaAEiYPUbyR9TwaqD8wUkFAoGBAM5H302iBvREzmMSalyG09hWBE/CsHgJN42I
+    uyLHLhgRQLvB6y/3siVrYNTjVTMYftOPXTOrdmVfVtUPhLnlR6R7sp/avCvl0a6V
+    JXkFAKXfBPlJHxiDRbwVRUwzaWXmA3XExsbtEKA8kqHt378x0QJhs3NuW48tTmof
+    200fVBm9AoGBAOvC9FU1kUabcSRTmKKanuTtdRBBSkNVoOubHrfH63I/s/aJ0BEv
+    ir0AICdFCC8hdjpqq5r+OnJ1qU+ML/Q/YYX9P9HGxqeXz0wYs7svi4i969X1xxc0
+    gbWztKkAsZnaqRdpi8oWAhosSozmM1S8QuVP7nwp1np75yMCL/fJK483
+    -----END RSA PRIVATE KEY-----
+enableContourHttpProxy: true
+harborAdminPassword: VMware123!
+secretKey: j0Kn0UlfSGzMTBx6
+database:
+  password: 4Oj0848rTIvzJiMc
+core:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+  xsrfKey: sGn5nIgBQKdwx89tZLO5pTJAqbCwVRU8
+jobservice:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+registry:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+notary:
+  enabled: true
+trivy:
+  enabled: true
+  replicas: 1
+  gitHubToken: ""
+  skipUpdate: true
+persistence:
+  persistentVolumeClaim:
+    registry:
+      storageClass: "vc01cl01-t0compute"
+      accessMode: ReadWriteOnce
+      size: 100Gi
+    jobservice:
+      storageClass: "vc01cl01-t0compute"
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    database:
+      storageClass: "vc01cl01-t0compute"
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    redis:
+      storageClass: "vc01cl01-t0compute"
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    trivy:
+      storageClass: "vc01cl01-t0compute"
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  imageChartStorage:
+    disableredirect: false
+    type: filesystem
+    filesystem:
+      rootdirectory: /storage
+pspNames: vmware-system-privileged
+metrics:
+  enabled: false
+  core:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  exporter:
+    path: /metrics
+    port: 8001
+network:
+  ipFamilies: ["IPv4", "IPv6"]

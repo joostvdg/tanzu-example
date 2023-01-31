@@ -1,0 +1,77 @@
+#@ load("@ytt:data", "data")
+---
+namespace: #@ data.values.namespace
+hostname: #@ data.values.hostname
+port:
+  https: 443
+logLevel: info
+tlsCertificate:
+  tls.crt: #@ data.values.tlsCert
+  tls.key: #@ data.values.tlsKey
+  ca.crt: #@ data.values.caCert
+enableContourHttpProxy: true
+harborAdminPassword: #@ data.values.adminPassword
+secretKey: j0Kn0UlfSGzMTBx6
+database:
+  password: 4Oj0848rTIvzJiMc
+core:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+  xsrfKey: sGn5nIgBQKdwx89tZLO5pTJAqbCwVRU8
+jobservice:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+registry:
+  replicas: 1
+  secret: vFib2c87qg1FFZqI
+notary:
+  enabled: true
+trivy:
+  enabled: true
+  replicas: 1
+  gitHubToken: ""
+  skipUpdate: true
+persistence:
+  persistentVolumeClaim:
+    registry:
+      storageClass: #@ data.values.storaceClass
+      accessMode: ReadWriteOnce
+      size: 100Gi
+    jobservice:
+      storageClass: #@ data.values.storaceClass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    database:
+      storageClass: #@ data.values.storaceClass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    redis:
+      storageClass: #@ data.values.storaceClass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    trivy:
+      storageClass: #@ data.values.storaceClass
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  imageChartStorage:
+    disableredirect: false
+    type: filesystem
+    filesystem:
+      rootdirectory: /storage
+pspNames: vmware-system-privileged
+metrics:
+  enabled: false
+  core:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  exporter:
+    path: /metrics
+    port: 8001
+network:
+  ipFamilies: ["IPv4", "IPv6"]

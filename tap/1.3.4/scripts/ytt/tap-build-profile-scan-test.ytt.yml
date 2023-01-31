@@ -1,0 +1,39 @@
+#@ load("@ytt:data", "data")
+#@ dv = data.values
+#@ kpRegistry = "{}/{}".format(dv.buildRegistry, dv.tbsRepo)
+---
+profile: build
+buildservice:
+  pull_from_kp_default_repo: true
+  exclude_dependencies: true
+  kp_default_repository: #@ kpRegistry
+  kp_default_repository_secret:
+    name: #@ dv.buildRegistrySecret
+    namespace: tap-install
+
+supply_chain: testing_scanning
+ootb_supply_chain_testing_scanning:
+  registry:
+    server: #@ dv.buildRegistry
+    repository: #@ dv.buildRepo
+
+shared:
+  ingress_domain: #@ dv.domainName
+  ca_cert_data: #@ dv.caCert
+
+ceip_policy_disclosed: true
+
+grype:
+  namespace: "MY-DEV-NAMESPACE" # (Optional) Defaults to default namespace.
+  targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
+  metadataStore:
+    url: METADATA-STORE-URL-ON-VIEW-CLUSTER
+    caSecret:
+        name: store-ca-cert
+        importFromNamespace: metadata-store-secrets
+    authSecret:
+        name: store-auth-token
+        importFromNamespace: metadata-store-secrets
+scanning:
+  metadataStore:
+    url: ""

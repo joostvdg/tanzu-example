@@ -1,0 +1,33 @@
+#@ load("@ytt:data", "data")
+#@ dv = data.values
+#@ kpRegistry = "{}/{}".format(dv.buildRegistry, dv.tbsRepo)
+---
+profile: build
+buildservice:
+  pull_from_kp_default_repo: true
+  exclude_dependencies: true
+  kp_default_repository: #@ kpRegistry
+  kp_default_repository_secret:
+    name: #@ dv.buildRegistrySecret
+    namespace: tap-install
+
+supply_chain: basic
+ootb_supply_chain_basic:
+  registry:
+    server: #@ dv.buildRegistry
+    repository: #@ dv.buildRepo
+
+shared:
+  ingress_domain: #@ dv.domainName
+  ca_cert_data: #@ dv.caCert
+
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+excluded_packages:
+  - scanning.apps.tanzu.vmware.com
+  - grype.scanning.apps.tanzu.vmware.com

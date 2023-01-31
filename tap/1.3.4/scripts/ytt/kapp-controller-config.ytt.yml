@@ -1,0 +1,9 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kapp-controller-config
+  namespace: #@ data.values.namespace
+stringData:
+  caCerts: #@ data.values.caCert
