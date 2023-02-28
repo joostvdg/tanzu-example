@@ -1,19 +1,17 @@
 #@ load("@ytt:data", "data")
 #@ dv = data.values
 ---
-
-
 profile: view
 ceip_policy_disclosed: true #! Installation fails if this is not set to true. Not a string.
 
 shared:
-  ingress_domain: #@ data.values.domainName 
+  ingress_domain: #@ data.values.domainName
   ca_cert_data: #@ data.values.caCert
 
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: true
-  ingressDomain: #@ data.values.domainName 
+  ingressDomain: #@ data.values.domainName
   app_config:
     auth:
       allowGuestAccess: true
@@ -28,15 +26,12 @@ tap_gui:
       locations:
         - type: url
           target: https://github.com/joostvdg/tap-catalog/blob/main/catalog-info.yaml
+        - type: url
+          target: https://github.com/joostvdg/tap-hello-world/blob/main/catalog/catalog-info.yaml
     backend:
       baseUrl: #@ "http://tap-gui."+data.values.domainName
       cors:
         origin: #@ "http://tap-gui."+data.values.domainName
-    locations:
-    - type: url
-      target: https://github.com/joostvdg/tap-catalog/blob/main/catalog-info.yaml
-    - type: url
-      target: https://github.com/joostvdg/tap-hello-world/blob/main/catalog/catalog-info.yaml
     kubernetes:
       serviceLocatorMethod:
         type: 'multiTenant'
@@ -59,6 +54,3 @@ tap_gui:
 appliveview:
   ingressEnabled: true
   sslDisabled: true
-
-excluded_packages:
-- tap-telemetry.tanzu.vmware.com
