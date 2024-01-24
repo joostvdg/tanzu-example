@@ -1,0 +1,136 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: kaniko-build-2
+  namespace: tap-tasks
+spec:
+  description: This task builds a simple Dockerfile with kaniko and pushes to a registry. It then stores the image ref as a result.
+  params:
+    - description: URL to tarball of source code
+      name: source_tar
+      type: string
+    - description: Name (reference) of the image to build.
+      name: image
+      type: string
+    - default: ./Dockerfile
+      description: Path to the Dockerfile to build.
+      name: dockerfile
+      type: string
+    - default: .
+      description: The build context used by Kaniko.
+      name: context
+      type: string
+    - default: []
+      description: Extra args to pass to Kaniko build
+      name: extra_args
+      type: array
+    - default: ""
+      description: |
+        PEM encoded certificate data for the image registry where the image will be pushed to.
+      name: ca_cert_data
+      type: string
+  results:
+    # - description: Digest of the image just built.
+    #   name: image_digest
+    #   type: string
+    # - description: Ref of the image just built.
+    #   name: image_ref
+    #   type: string
+    - name: IMAGE_DIGEST
+      description: Digest of the image just built.
+    - name: IMAGE_URL
+      description: URL of the image just built.
+  steps:
+    - computeResources: {}
+      image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:1d063b6be582302e083fecace0e105ef3e65c337a1f2c00e07175db88d36b2ad
+      name: pull-source-code
+      script: |
+        #!/usr/bin/env bash
+
+        set -o errexit
+        set -o xtrace
+
+        source="$(params.source_tar)"
+
+        cd `mktemp -d`
+        curl -sL -o source.tar.gz "${source}"
+        tar --touch --no-overwrite-dir -xzf source.tar.gz -C /source
+      securityContext:
+        runAsUser: 0
+      volumeMounts:
+        - mountPath: /source
+          name: source-dir
+    - computeResources: {}
+      env:
+        - name: DOCKER_CONFIG
+          value: /docker-config/
+      image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:1d063b6be582302e083fecace0e105ef3e65c337a1f2c00e07175db88d36b2ad
+      name: copy-docker-config-and-certs
+      script: |
+        #!/usr/bin/env bash
+
+        set -o errexit
+        set -o xtrace
+
+        cp /tekton/creds/.docker/config.json /docker-config/
+
+        cp /etc/ssl/certs/ca-certificates.crt /certs/ca-certificates.crt
+        if [[ ! -z "$(params.ca_cert_data)" ]]; then
+          echo "$(params.ca_cert_data)" >> /certs/ca-certificates.crt
+        fi
+      volumeMounts:
+        - mountPath: /docker-config
+          name: docker-config
+        - mountPath: /certs
+          name: ca-certs
+    - args:
+        - $(params.extra_args)
+        - --dockerfile=$(params.dockerfile)
+        - --context=dir:///source/$(params.context)
+        - --destination=$(params.image)
+        - --digest-file=$(results.IMAGE_DIGEST.path)
+        - --ignore-path=//product_uuid
+      computeResources: {}
+      env:
+        - name: DOCKER_CONFIG
+          value: /kaniko/.docker
+      image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:8aef898dda5f489e40a0276f88212254df6c144403d96330c78283b9aa11f692
+      name: build-and-push
+      securityContext:
+        runAsUser: 0
+      volumeMounts:
+        - mountPath: /source
+          name: source-dir
+        - mountPath: /kaniko/.docker
+          name: docker-config
+        - mountPath: /kaniko/ssl/certs
+          name: ca-certs
+    # - computeResources: {}
+    #   image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:1d063b6be582302e083fecace0e105ef3e65c337a1f2c00e07175db88d36b2ad
+    #   name: write-image-ref
+    #   script: |
+    #     #!/usr/bin/env bash
+
+    #     set -o errexit
+    #     set -o xtrace
+
+    #     image="$(params.image)"
+    #     digest_path="$(results.image_digest.path)"
+    #     digest="$(cat ${digest_path})"
+
+    #     echo -n "${image}@${digest}" | tee "$(results.image_ref.path)"
+        
+    - name: write-url
+      image: harbor.tap.h2o-2-19271.h2o.vmware.com/dh-proxy/library/bash
+      script: |
+        set -e
+        echo $(params.image) | tee $(results.IMAGE_URL.path)
+      securityContext:
+        runAsUser: 0
+  volumes:
+    - emptyDir: {}
+      name: docker-config
+    - emptyDir: {}
+      name: source-dir
+    - emptyDir: {}
+      name: ca-certs

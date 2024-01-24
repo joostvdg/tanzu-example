@@ -1,0 +1,23 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: debian-bookworm
+  labels:
+    apps.tanzu.vmware.com/workload-type: image
+    app.kubernetes.io/part-of: debian-bookworm
+spec:
+  env:
+  - name: APP_MESSAGE
+    value: "image supply chain"
+  params:
+  - name: gitops_ssh_secret
+    value: gitlab-https
+  - name: dockerfile
+    value: ./docker/Dockerfile
+  image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap-apps/debian-bookworm
+  source:
+    git:
+      url: http://gitlab.tap.h2o-2-19271.h2o.vmware.com/root/tanzu-example.git
+      ref:
+        branch: main
+
