@@ -95,6 +95,9 @@ spec:
         kind: ClusterImageTemplate
         name: image-scanner-template
     - name: source-provider
+      images:
+        - name: image
+          resource: image-scanner-base-image
       params:
         - default: default
           name: serviceAccount
@@ -216,6 +219,3 @@ spec:
       operator: In
       values:
         - image
-  # selectorMatchFields:
-  #   - key: spec.image
-  #     operator: Exists
