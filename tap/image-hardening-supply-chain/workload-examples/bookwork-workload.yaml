@@ -13,7 +13,7 @@ spec:
   - name: gitops_ssh_secret
     value: gitlab-https
   - name: dockerfile
-    value: ./docker/Dockerfile
+    value: ./tap/image-hardening-supply-chain/debian/bookworm/Dockerfile
   image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap-apps/debian-bookworm
   source:
     git:
