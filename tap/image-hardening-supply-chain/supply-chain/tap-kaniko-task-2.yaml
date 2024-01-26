@@ -30,12 +30,13 @@ spec:
       name: ca_cert_data
       type: string
   results:
+    # This should be upper case for Tekton Chains
     # - description: Digest of the image just built.
     #   name: image_digest
     #   type: string
-    # - description: Ref of the image just built.
-    #   name: image_ref
-    #   type: string
+    - description: Ref of the image just built.
+      name: image_ref
+      type: string
     - name: IMAGE_DIGEST
       description: Digest of the image just built.
     - name: IMAGE_URL
@@ -124,6 +125,12 @@ spec:
       image: harbor.tap.h2o-2-19271.h2o.vmware.com/dh-proxy/library/bash
       script: |
         set -e
+        
+        image="$(params.image)"
+        digest_path="$(results.IMAGE_DIGEST.path)"
+        digest="$(cat ${digest_path})"
+
+        echo -n "${image}@${digest}" | tee "$(results.image_ref.path)"
         echo $(params.image) | tee $(results.IMAGE_URL.path)
       securityContext:
         runAsUser: 0

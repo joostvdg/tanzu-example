@@ -1,4 +1,4 @@
 ARG APP_IMAGE=bitnami/minideb:bookworm
 FROM $APP_IMAGE
 
-ENV ALT_DATE="2024-01-01"%
+ENV ALT_DATE="2024-01-01"
