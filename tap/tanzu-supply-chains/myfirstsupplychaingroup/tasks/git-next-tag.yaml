@@ -1,0 +1,84 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: git-next-tag
+  labels:
+    app.kubernetes.io/version: "0.1.0"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: CLI
+    tekton.dev/tags: version
+    tekton.dev/platforms: "linux/amd64,linux/arm64"
+spec:
+  description: >-
+    This task performs git-next-tag operation to determining the next tag for your Git repository.
+  params:
+    - name: image
+      description: option of git-next-tag image
+      type: string
+      default: ghcr.io/joostvdg/git-next-tag:0.5.4-alpine
+    - name: base
+      description: version Base to query Git tags for (e.g., v2.1.*)
+      type: string
+    - name: additionalFlags
+      description: Set additional flags, such as enabling verbose logging with `-v` (pollutes output)
+      type: array
+      default: []
+  workspaces:
+    - name: source
+  results:
+    - name: NEXT_TAG
+      description: Next version for Git Tag.
+  steps:
+    - name: pull-tags
+      image: "$(params.image)" #! gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.44.5
+      env:
+        - name: XDG_CONFIG_HOME
+          value: /config
+        - name: GIT_CONFIG_GLOBAL
+          value: /config/gitconfig
+        - name: HOME
+          value: /home/gitnexttag
+      volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: home
+          mountPath: /home/gitnexttag
+      script: |
+        #!/usr/bin/env sh
+        set -eu
+
+        git config --global safe.directory $(workspaces.source.path)
+        git config --global --list
+        
+        cd $(workspaces.source.path) && git fetch --verbose origin 'refs/tags/*:refs/tags/*'
+
+    - name: git-next-tag
+      image: "$(params.image)"
+      env:
+        - name: XDG_CONFIG_HOME
+          value: /config
+        - name: GIT_CONFIG_GLOBAL
+          value: /config/gitconfig
+        - name: HOME
+          value: /home/gitnexttag
+      volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: home
+          mountPath: /home/gitnexttag
+      script: |
+        #!/usr/bin/env sh
+        set -eu
+        
+        echo "Running git-next-tag with base: $(params.base)"
+
+        git config --global safe.directory $(workspaces.source.path)
+        git config --global --list
+        
+        /work/git-next-tag --baseTag $(params.base) --path $(workspaces.source.path) --outputPath $(results.NEXT_TAG.path) -vvv
+  volumes:
+    - name: config
+      emptyDir: {}
+    - name: home
+      emptyDir: {}

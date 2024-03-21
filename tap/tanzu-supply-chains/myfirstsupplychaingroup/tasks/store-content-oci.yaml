@@ -1,0 +1,79 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+    name: store-content-oci
+spec:
+    params:
+        - name: workload-name
+          type: string
+        - name: CA_FILE_SECRET
+          description: Secret with base64 encoded CA file for Helm repository
+          default: ca-certs
+          type: string
+    results:
+        - name: digest
+          type: string
+        - name: url
+          type: string
+        - name: message
+          type: string
+    stepTemplate:
+        computeResources: {}
+        securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+                drop:
+                    - ALL
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seccompProfile:
+                type: RuntimeDefault
+    steps:
+        - computeResources: {}
+          env:
+            - name: OCI_SERVER
+              valueFrom:
+                secretKeyRef:
+                    key: server
+                    name: oci-store
+            - name: OCI_REPOSITORY
+              valueFrom:
+                secretKeyRef:
+                    key: repository
+                    name: oci-store
+            - name: CA_FILE_CONTENT
+              valueFrom:
+                secretKeyRef:
+                  name: $(params.CA_FILE_SECRET)
+                  key: ca.crt
+          image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:f06c0e1164ae6282afa964484141d1f05e5092a017bf679dfe121a743189a8ca
+          name: store
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          script: |-
+            #!/bin/bash
+
+            set -euo pipefail
+
+            # Write the base64 encoded CA file to a file
+            echo "CA Cert found: ${CA_FILE_CONTENT}"
+            export CA_CERT_PATH=/config/ca.crt
+            cat <<< ${CA_FILE_CONTENT} > ${CA_CERT_PATH}
+
+            # FIXME this line is horrible, but I don't (yet) want to write my own binary to do this
+            IMAGE_NAME=$(imgpkg push -i ${OCI_SERVER}/${OCI_REPOSITORY}/$(params.workload-name)-store -f $(workspaces.input.path) --tty --registry-ca-cert-path ${CA_CERT_PATH} | grep Pushed | sed "s/Pushed//" | sed "s/'//g" | sed 's/ //g')
+            if [ $? -ne 0 ]; then
+              printf "upload failed" | tee $(results.message.path)
+              exit 1
+            fi
+
+            printf "${IMAGE_NAME#*sha256:}" > $(results.digest.path)
+            printf "${IMAGE_NAME}" > $(results.url.path)
+    workspaces:
+        - description: The content to be tar'ed and sent
+          name: input
+    volumes:
+      - name: config
+        emptyDir: {}

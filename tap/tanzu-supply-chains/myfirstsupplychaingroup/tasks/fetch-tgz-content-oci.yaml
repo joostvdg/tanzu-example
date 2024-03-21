@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+    name: fetch-tgz-content-oci
+spec:
+    params:
+        - description: location of the input
+          name: url
+          type: string
+        - name: CA_FILE_SECRET
+          description: Secret with base64 encoded CA file for Helm repository
+          default: ca-certs
+          type: string
+    results:
+        - name: message
+          type: string
+    stepTemplate:
+        computeResources: {}
+        securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+                drop:
+                    - ALL
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seccompProfile:
+                type: RuntimeDefault
+    steps:
+        - computeResources: {}
+          image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:f06c0e1164ae6282afa964484141d1f05e5092a017bf679dfe121a743189a8ca
+          name: fetch
+          env:
+            - name: CA_FILE_CONTENT
+              valueFrom:
+                secretKeyRef:
+                  name: $(params.CA_FILE_SECRET)
+                  key: ca.crt
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          script: |
+            #!/bin/bash
+
+            set -euo pipefail
+
+            # Write the base64 encoded CA file to a file
+            echo "CA Cert found: ${CA_FILE_CONTENT}"
+            export CA_CERT_PATH=/config/ca.crt
+            cat <<< ${CA_FILE_CONTENT} > ${CA_CERT_PATH}
+
+            DIR=$(mktemp -d)
+
+            imgpkg pull --registry-ca-cert-path ${CA_CERT_PATH} -i $(params.url) -o $DIR
+            if [ $? -ne 0 ]; then
+              printf "download failed" | tee $(results.message.path)
+              exit 1
+            fi
+
+            cp -R $DIR/* $(workspaces.store.path)
+            if [ $? -ne 0 ]; then
+              printf "copy failed" | tee $(results.message.path)
+              exit 1
+            fi
+    workspaces:
+        - description: The store for the content
+          name: store
+    volumes:
+      - name: config
+        emptyDir: {}

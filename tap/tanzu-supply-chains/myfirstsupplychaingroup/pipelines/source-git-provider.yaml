@@ -1,0 +1,104 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+    name: source-git-provider
+spec:
+    description: This pipeline stores the head of the git repository into an oci store.
+    params:
+        - description: The name of the workload
+          name: workload-name
+          type: string
+        - description: The git repo URL to clone from.
+          name: git-url
+          type: string
+        - description: The git commit to clone.
+          name: sha
+          type: string
+        - description: The base version to use for the next version. (e.g., v2.1.*)
+          name: version-base
+          type: string
+    results:
+        - description: url of the resulting source object you can use in your chain
+          name: url
+          type: string
+          value: $(tasks.store.results.url)
+        - description: digest of the shipped content sent to 'url'
+          name: digest
+          type: string
+          value: $(tasks.store.results.digest)
+        - description: next tag version
+          name: NEXT_TAG
+          type: string
+          value: $(tasks.version.results.NEXT_TAG)
+    tasks:
+        - name: fetch
+          params:
+            - name: url
+              value: $(params.git-url)
+            - name: revision
+              value: $(params.sha)
+          taskRef:
+            kind: Task
+            name: source-git-clone
+          workspaces:
+            - name: output
+              workspace: shared-data
+        - name: version
+          runAfter:
+            - fetch
+          params:
+            - name: base
+              value: $(params.version-base)
+          taskRef:
+            kind: Task
+            name: git-next-tag
+          workspaces:
+            - name: source
+              workspace: shared-data
+        - name: strip-git
+          runAfter:
+            - version
+          taskSpec:
+            metadata: {}
+            spec: null
+            stepTemplate:
+                computeResources: {}
+                securityContext:
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                        drop:
+                            - ALL
+                    runAsNonRoot: true
+                    runAsUser: 1001
+                    seccompProfile:
+                        type: RuntimeDefault
+            steps:
+                - computeResources: {}
+                  image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap/tap-packages@sha256:f553bda7c5d86fce44ae6380bb728d7cc665c9aba2d4b9933de1eac3b3223ecb
+                  name: rm
+                  script: |
+                    #!/bin/bash
+
+                    set -euo pipefail
+
+                    rm -rf $(workspaces.content.path)/.git
+          workspaces:
+            - name: content
+              workspace: shared-data
+        - name: store
+          params:
+            - name: workload-name
+              value: $(params.workload-name)
+          runAfter:
+            - strip-git
+          taskRef:
+            kind: Task
+            name: store-content-oci
+          workspaces:
+            - name: input
+              workspace: shared-data
+    workspaces:
+        - description: |
+            This workspace contains the cloned repo files, so they can be read by the
+            next task.
+          name: shared-data

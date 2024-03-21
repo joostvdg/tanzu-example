@@ -1,0 +1,55 @@
+apiVersion: supplychains.tanzu.vmware.com/v1alpha1
+kind: AppBuildV3
+metadata:
+  name: tanzu-java-web-app
+spec:
+  gitOps:
+    #! The kind of SCM server
+    scmKind: "gitlab"
+    #! the base branch to create PRs against
+    baseBranch: "main"
+    #! the relative path within the gitops repository to add the package configuration to.
+    subPath: "config/tsc1/tanzu-java-web-app"
+    #! the repository to push the pull request to
+    #! Required
+    #! url: "https://joostvandergriendt@dev.azure.com/joostvandergriendt/my-first-repo/_git/my-first-repo"
+    url: "http://gitlab.tap.h2o-2-19271.h2o.vmware.com/root/tap-apps.git"
+  carvel:
+    packageDomain: "joostvdg"
+    #! The name of the Carvel Package. Combines with spec.carvel.packageDomain to create the Package refName. If set to "", will use the workload name.
+    packageName: "tap-hello-world"
+  #! Kpack build specification
+  build:
+    #! Configure workload to use a non-default builder or clusterbuilder
+    builder:
+      #! builder kind
+      kind: "clusterbuilder"
+      #! builder name
+      name: "default"
+    #! Service account to use
+    serviceAccountName: "default"
+    env:
+      #! Required
+    - name: "BP_JVM_VERSION"
+      #! Required
+      value: "17"
+  #! Configuration for the generated Carvel Package
+  registry:
+    #! The name of the repository
+    #! Required
+    repository: "tap-apps"
+    #! The name of the registry server, e.g. docker.io
+    #! Required
+    server: "harbor.tap.h2o-2-19271.h2o.vmware.com"
+  source:
+    version: "v0.1"
+    #! Use this object to retrieve source from a git repository.
+    #! The tag, commit and branch fields are mutually exclusive, use only one.
+    #! Required
+    git:
+      #! A git branch ref to watch for new source
+      branch: "main"
+      #! The url to the git source repository
+      #! Required
+      #! url: "https://dev.azure.com/joostvandergriendt/tap-examples/_git/tap-hello-world.git"
+      url: "http://gitlab.tap.h2o-2-19271.h2o.vmware.com/root/tap-hello-world.git"
