@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: fluxcd-repo-download
+spec:
+  params:
+    - name: source-url
+      type: string
+      description: |
+        the source url to download the code from, 
+        in the form of a FluxCD repository checkout .tar.gz
+  workspaces:
+    - name: output
+      description: The git repo will be cloned onto the volume backing this Workspace.
+  steps:
+    - name: download-source
+      image: public.ecr.aws/docker/library/gradle:jdk17-focal
+      script: |
+        #!/usr/bin/env sh
+        cd $(workspaces.output.path)
+        wget -qO- $(params.source-url) | tar xvz -m
