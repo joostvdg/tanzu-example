@@ -62,7 +62,6 @@ spec:
         server: harbor.tap1.h2o-2-24224.h2o.vmware.com
       source:
         git:
-          branch: #@ dv.gitBranch
           url: #@ dv.gitRepoUrl
           commit: #@ dv.gitCommitSha
         subPath: ''
