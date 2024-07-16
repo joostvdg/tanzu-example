@@ -1,0 +1,21 @@
+apiVersion: source.apps.tanzu.vmware.com/v1alpha1
+kind: ImageRepository
+metadata:
+  name: debian-bookworm-4
+  namespace: debian
+spec:
+  image: harbor.tap.h2o-2-19271.h2o.vmware.com/tap-apps/debian-bookworm:0.0.3
+  interval: 1m0s
+  serviceAccountName: default
+---
+
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: debian-bookworm-5
+  namespace: debian
+spec:
+  interval: 5m0s
+  url: oci://harbor.tap.h2o-2-19271.h2o.vmware.com/tap-apps/debian-bookworm
+  ref:
+    tag: 0.0.2
